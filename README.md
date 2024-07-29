@@ -45,7 +45,7 @@ This application allows users to share daily expenses, add users, and generate b
 - **`expense_split.py`**: Defines the `ExpenseSplit` model with fields for ID, expense ID, user ID, amount, and percentage. This model represents how each expense is split among users.
 
 ### `templates/`
-- **`index.html`**: Provides a web interface with forms to add users and expenses, and a button to download the balance sheet CSV file. It uses Bootstrap for styling and includes JavaScript for handling form submissions.
+- **`index.html`**: Provides a web interface with forms to add users and expenses, and a button to download the balance sheet CSV file.
 
 ### `requirements.txt`
 - Lists the Python packages required to run the application, such as Flask and SQLAlchemy.
