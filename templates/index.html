@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Expenses Sharing App</title>
+</head>
+<body>
+    <h1>Daily Expenses Sharing App</h1>
+    
+    <h2>Add User</h2>
+    <form action="/users" method="post">
+        <label>Name: <input type="text" name="name" required></label><br>
+        <label>Email: <input type="email" name="email" required></label><br>
+        <label>Mobile Number: <input type="text" name="mobile_number" required></label><br>
+        <button type="submit">Add User</button>
+    </form>
+
+    <h2>Add Expense</h2>
+    <form action="/expenses" method="post">
+        <label>Description: <input type="text" name="description" required></label><br>
+        <label>Amount: <input type="number" name="amount" step="0.01" required></label><br>
+        <label>Payer ID: <input type="number" name="payer_id" required></label><br>
+        <label>Split Method: 
+            <select name="split_method" required>
+                <option value="equal">Equal</option>
+                <option value="exact">Exact</option>
+                <option value="percentage">Percentage</option>
+            </select>
+        </label><br>
+        <label>Splits (JSON format): <textarea name="splits" rows="4" cols="50" placeholder='[{"user_id":1},{"user_id":2},{"user_id":3}] for equal or [{"user_id":1,"amount":1000},{"user_id":2,"amount":2000},{"user_id":3,"amount":1000}] for exact or [{"user_id":1,"percentage":25},{"user_id":2,"percentage":50},{"user_id":3,"percentage":25}] for percentage'></textarea></label><br>
+        <button type="submit">Add Expense</button>
+    </form>
+
+    <h2>Download Balance Sheet</h2>
+    <a href="/expenses/balance-sheet" download>Download Balance Sheet</a>
+
+    <h2>List of Users</h2>
+    <ul id="user-list">
+        <!-- User list will be populated here -->
+    </ul>
+
+    <script>
+        // Fetching the list of users and display them
+        fetch('/users')
+            .then(response => response.json())
+            .then(data => {
+                const userList = document.getElementById('user-list');
+                data.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = `ID: ${user.id}, Name: ${user.name}, Email: ${user.email}, Mobile Number: ${user.mobile_number}`;
+                    userList.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>
